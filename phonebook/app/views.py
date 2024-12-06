@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from.models import *
+from django.conf import settings
+from django.core.mail import send_mail
 
 # Create your views here.
 # ------------------user login-------------------------
@@ -41,6 +43,7 @@ def register(req):
         try:
             data=User.objects.create_user(first_name=uname,email=email,username=email,password=pswrd)
             data.save()
+            send_mail('Registration','Registration successful', settings.EMAIL_HOST_USER, [email])
             return redirect(user_login)
         except:
             messages.warning(req,'Email already exist')
@@ -69,7 +72,7 @@ def edit_contact(req,id):
         name = req.POST['name']
         phn_num = req.POST['phn_num']
         Phonebook.objects.filter(pk=id).update(name=name,phn_num=phn_num)
-        return redirect(add_contact)
+        return redirect(phonebook)
     else:
         return render(req,'edit_contact.html',{'data':data})
 

@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
 </head>
 <body>
     <form action="" method="post">
         {% csrf_token %}
         <input type="text" name="name" id="" placeholder="name" value="{{data.name}}">
-        <input type="number" name="age" id="" placeholder="age" value="{{data.phn_num}}">
+        <input type="tel" name="phn_num" id="phone" placeholder="Phone Number" value="{{data.phn_num}}"
+        pattern="[0-9]{10}" 
+        title="Please enter a valid 10-digit phone number" 
+        ><br><br>
         <input type="submit" value="update">
     </form>
 

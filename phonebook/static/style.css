@@ -1,0 +1,47 @@
+body{
+    background: url('phonebook.jpg') no-repeat center center fixed;
+    background-size: cover; 
+}
+.container{
+    background-color:rgba(253, 253, 253, 0.361);
+	height: 70vh;
+    width:20% !important;
+    margin: auto;
+    border-radius: 2%;
+    margin-top: 12vh;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.427);
+    padding: 10px;
+    box-sizing: border-box;
+    color: white;
+    
+}
+.container h1{
+    color: white;
+    text-shadow:  0 4px 8px rgba(0, 0, 0, 0.505);
+    margin-bottom: 6vh;
+}
+.main a{
+    color: white;
+    text-decoration:underline;
+}
+.input{
+    padding: 10px;
+    border-radius: 10px;
+    border-style: none;
+    width: 15vw;
+}
+.input1{
+    padding: 10px;
+    border-radius: 10px;
+    border-style: none;
+    width: 6vw;
+    margin-top: 4vh;
+    margin-bottom: 2vh;
+}
+.main{
+    margin-top: 10vh;
+}
+
+
+
