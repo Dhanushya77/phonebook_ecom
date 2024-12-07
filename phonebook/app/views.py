@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from.models import *
 from django.conf import settings
 from django.core.mail import send_mail
+import random
 
 # Create your views here.
 # ------------------user login-------------------------
@@ -43,13 +44,34 @@ def register(req):
         try:
             data=User.objects.create_user(first_name=uname,email=email,username=email,password=pswrd)
             data.save()
-            send_mail('Registration','Registration successful', settings.EMAIL_HOST_USER, [email])
-            return redirect(user_login)
+            otp=""
+            for i in range(6):
+                otp+=str(random.randint(0,9))
+            msg=f'Your registration is completed otp: {otp}'
+            send_mail('Registration',otp, settings.EMAIL_HOST_USER, [email])
+            Otp.objects.create(user=data,otp=otp)
+            return redirect(otp_confirmation)
         except:
             messages.warning(req,'Email already exist')
             return redirect(register)
     else:
         return render(req,'register.html')
+    
+def otp_confirmation(req):
+    if req.method=='POST':
+        uname=req.POST.get('uname')
+        user_otp=req.POST.get('otp')
+        try:
+            user=User.objects.get(user=uname)
+            generated_otp=Otp.objects.get(user=user)
+            print(generated_otp)
+            if generated_otp.otp == user_otp:
+                generated_otp.delete()
+                return redirect(user_login)
+        except:
+            messages.warning(req,'otp verification failed')
+            return redirect(otp_confirmation)
+    return render(req,'otp.html')
 
 
 def phonebook(req):
