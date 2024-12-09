@@ -56,22 +56,29 @@ def register(req):
             return redirect(register)
     else:
         return render(req,'register.html')
-    
+
+
 def otp_confirmation(req):
-    if req.method=='POST':
-        uname=req.POST.get('uname')
-        user_otp=req.POST.get('otp')
+    if req.method == 'POST':
+        uname = req.POST.get('uname')
+        user_otp = req.POST.get('otp')
         try:
-            user=User.objects.get(user=uname)
-            generated_otp=Otp.objects.get(user=user)
-            print(generated_otp)
+            user = User.objects.get(username=uname)
+            generated_otp = Otp.objects.get(user=user)
+    
             if generated_otp.otp == user_otp:
                 generated_otp.delete()
                 return redirect(user_login)
-        except:
-            messages.warning(req,'otp verification failed')
+            else:
+                messages.warning(req, 'Invalid OTP')
+                return redirect(otp_confirmation)
+        except User.DoesNotExist:
+            messages.warning(req, 'User does not exist')
             return redirect(otp_confirmation)
-    return render(req,'otp.html')
+        except Otp.DoesNotExist:
+            messages.warning(req, 'OTP not found or expired')
+            return redirect(otp_confirmation)
+    return render(req, 'otp.html')
 
 
 def phonebook(req):
