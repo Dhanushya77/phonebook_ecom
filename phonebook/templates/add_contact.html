@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,20 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'style2.css' %}">
 </head>
+
 <body>
     <div class="container">
-    <div class="main">
-         <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="text" name="name" id="" class="input" placeholder="name" required><br><br>
-        <input type="tel" name="phn_num" id="phone" placeholder="Phone Number" 
-        pattern="[0-9]{10}" 
-        title="Please enter a valid 10-digit phone number" 
-        required><br><br>
-        <input type="submit" value="add" class="input1"><br><br>
-    </form>
+        <div class="main">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" name="name" id="" class="input" placeholder="name" required><br><br>
+                <input type="tel" name="phn_num" id="phone" placeholder="Phone Number" pattern="^[6-9].{9}"
+                    title="Please enter a valid 10-digit phone number" class="input" required><br><br>
+                <input type="submit" value="add" class="input1">
+            </form>
+        </div>
     </div>
-    </div>
-     
+
 </body>
+
 </html>
